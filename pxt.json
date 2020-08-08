@@ -2,8 +2,7 @@
     "name": "hula hoop best",
     "description": "",
     "dependencies": {
-        "device": "*",
-        "circle ext best": "github:wecodemakecode/circle-ext-best#master"
+        "device": "*"
     },
     "files": [
         "main.blocks",
