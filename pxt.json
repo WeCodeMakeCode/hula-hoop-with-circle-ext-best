@@ -1,10 +1,9 @@
 {
-    "name": "hula hoop with new circle ext",
+    "name": "hula hoop best",
     "description": "",
     "dependencies": {
         "device": "*",
-        "sprite data revised": "github:wecodemakecode/sprite-data-revised#9ac9fce45a39965be492b9402c8c8c61c4520fbd",
-        "circle ext new": "github:wecodemakecode/circle-ext-new#master"
+        "circle ext best": "github:wecodemakecode/circle-ext-best#master"
     },
     "files": [
         "main.blocks",
@@ -17,7 +16,7 @@
         "test.ts"
     ],
     "targetVersions": {
-        "target": "1.0.15",
+        "target": "1.1.5",
         "targetId": "arcade"
     },
     "supportedTargets": [

@@ -12,12 +12,12 @@ function count_hoops_in_motion () {
         sprites.setDataNumber(myHoop, "prior x", myHoop.x)
         sprites.setDataNumber(myHoop, "prior y", myHoop.y)
         if (d == 0) {
-            myHoop.color = red
-            sprites.changeDataNumberBy(myHoop, "number stopped", 1)
+            circle.setColor(myHoop, red)
+            sprites.changeDataNumberBy(myHoop, "number times stopped", 1)
         } else {
             hoops_in_motion += 1
-            sprites.setDataNumber(myHoop, "number stopped", 1)
-            myHoop.color = sprites.readDataNumber(myHoop, "original color")
+            sprites.setDataNumber(myHoop, "number of times stopped", 1)
+            circle.setColor(myHoop, sprites.readDataNumber(myHoop, "original color"))
         }
     }
     return hoops_in_motion
@@ -42,7 +42,8 @@ function show_instructions_question () {
     }
 }
 function make_one_hoop () {
-    myHoop = circle.createCircle(Math.randomRange(16, 60), randint(3, 14))
+    color = randint(3, 14)
+    myHoop = circle.createCircle(Math.randomRange(16, 60), color)
     myHoop.setKind(SpriteKind.Hoop)
     myHoop.x = Math.randomRange(0, scene.screenWidth())
     myHoop.y = Math.randomRange(0, scene.screenHeight())
@@ -51,8 +52,8 @@ function make_one_hoop () {
     myHoop.setFlag(SpriteFlag.BounceOnWall, true)
     sprites.setDataNumber(myHoop, "prior x", myHoop.x)
     sprites.setDataNumber(myHoop, "prior y", myHoop.y)
-    sprites.setDataNumber(myHoop, "number stopped", 0)
-    sprites.setDataNumber(myHoop, "original color", myHoop.color)
+    sprites.setDataNumber(myHoop, "number of times stopped", 0)
+    sprites.setDataNumber(myHoop, "original color", color)
     myHoopList.push(myHoop)
     sprite_list.push(myHoop)
     New_countdown = true
@@ -66,9 +67,8 @@ function distance_moved (hoop_ndx: number) {
 sprites.onOverlap(SpriteKind.Hoop, SpriteKind.Hoop, function (sprite, otherSprite) {
     if (Math.randomRange(0, stickiness) == 0) {
         sprite.follow(otherSprite)
-        overlapHoop = getCircleWithSprite(otherSprite, myHoopList)
-        if (overlapHoop.color != red) {
-            getCircleWithSprite(sprite, myHoopList).color = overlapHoop.color
+        if (circle.getColor(otherSprite) != red) {
+            circle.setColor(sprite, circle.getColor(otherSprite))
         }
     }
 })
@@ -77,7 +77,7 @@ function dump_dictionary (hoop_ndx: number) {
     console.logValue("len", myHoopList.length)
     console.logValue("prior x", sprites.readDataNumber(tmpHoop, "prior x"))
     console.logValue("prior x", sprites.readDataNumber(tmpHoop, "prior y"))
-    console.logValue("number stopped", sprites.readDataNumber(tmpHoop, "number stopped"))
+    console.logValue("number of times stopped", sprites.readDataNumber(tmpHoop, "number stopped"))
     console.logValue("original color", sprites.readDataNumber(tmpHoop, "original color"))
 }
 function remove_slowest_hoop () {
@@ -92,7 +92,7 @@ function remove_slowest_hoop () {
             }
             ndx += 1
         }
-        circle.destroy(myHoopList.removeAt(min_ndx))
+        myHoopList.removeAt(min_ndx).destroy()
     }
 }
 info.onCountdownEnd(function () {
@@ -129,12 +129,12 @@ let min_ndx = 0
 let This_dd = 0
 let ndx = 0
 let Min_dd = 0
-let overlapHoop: Circle = null
-let tmpHoop: Circle = null
+let tmpHoop: Sprite = null
+let color = 0
 let msg = ""
 let red = 0
 let d = 0
-let myHoop: Circle = null
+let myHoop: Sprite = null
 let hoops_in_motion = 0
 let stickiness = 0
 let max_velocity = 0
@@ -143,10 +143,10 @@ let New_countdown = false
 let sprite_list: Sprite[] = []
 let dy = 0
 let dx = 0
-let myHoopList: Circle[] = []
-let B_changing_hoops = false
+let myHoopList: Sprite[] = []
 let original_color = 0
-myHoopList = emptyCircleList()
+let B_changing_hoops = false
+myHoopList = []
 dx = 0
 dy = 0
 init_constants()
