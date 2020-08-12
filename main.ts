@@ -106,11 +106,6 @@ info.onCountdownEnd(function () {
         New_countdown = true
     }
 })
-function init_constants () {
-    levels = 4
-    change_per_level = 10
-    red = 2
-}
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     remove_slowest_hoop()
 })
@@ -123,8 +118,6 @@ function random_velocity () {
 }
 let time = 0
 let v = 0
-let change_per_level = 0
-let levels = 0
 let min_ndx = 0
 let This_dd = 0
 let ndx = 0
@@ -132,7 +125,6 @@ let Min_dd = 0
 let tmpHoop: Sprite = null
 let color = 0
 let msg = ""
-let red = 0
 let d = 0
 let myHoop: Sprite = null
 let hoops_in_motion = 0
@@ -141,6 +133,8 @@ let max_velocity = 0
 let Level = 0
 let New_countdown = false
 let sprite_list: Sprite[] = []
+let red = 0
+let levels = 0
 let dy = 0
 let dx = 0
 let myHoopList: Sprite[] = []
@@ -149,7 +143,9 @@ let original_color = 0
 myHoopList = []
 dx = 0
 dy = 0
-init_constants()
+levels = 4
+let change_per_level = 10
+red = 2
 sprite_list = sprites.allOfKind(SpriteKind.Hoop)
 New_countdown = false
 Level = 1
@@ -158,8 +154,8 @@ max_velocity = 100 / Level
 stickiness = 51
 info.setLife(Level)
 show_instructions_question()
-make_one_hoop()
 let prior_time = game.runtime()
+make_one_hoop()
 game.onUpdate(function () {
     if (New_countdown) {
         New_countdown = false

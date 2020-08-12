@@ -3,8 +3,8 @@
     "description": "",
     "dependencies": {
         "device": "*",
-        "circle ext best": "github:wecodemakecode/circle-ext-best#4f672c713bbf3221ceee8b648d719c4141f21f8e",
-        "sprite data revised": "github:wecodemakecode/sprite-data-revised#007c04b54b5c163ecb3ea1174f4e4dfa9eeff059"
+        "sprite data revised": "github:wecodemakecode/sprite-data-revised#007c04b54b5c163ecb3ea1174f4e4dfa9eeff059",
+        "circle ext best": "github:wecodemakecode/circle-ext-best#master"
     },
     "files": [
         "main.blocks",
